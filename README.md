@@ -17,20 +17,9 @@ This project analyzes the availability and enrollment patterns of K–12 Compute
 - Merging multi-year datasets  
 - Validation of logical consistency and negative values  
 - Derivation of aggregated and proportional variables  
-- Production of analysis-ready datasets and visualizations  
+- Production of analysis-ready datasets 
 
 This is not just analysis — it is a **reproducible, multi-step data engineering workflow** that transforms messy administrative datasets into a clean, integrated resource ready for policy research.
-
----
-
-## Focus Questions
-
-1. How widely available are CS courses across U.S. schools?  
-2. Does CS access differ by Title I status?  
-3. How does CS availability vary by school level?  
-4. What are the gender participation patterns in CS?  
-5. What is the racial composition of CS enrollment?  
-6. Did CS access change between 2020–21 and 2021–22?  
 
 ---
 
@@ -83,9 +72,7 @@ This is not just analysis — it is a **reproducible, multi-step data engineerin
 7. **Output Generation**
    - Clean analytical datasets (`combined_data_clean_final.csv`)  
    - Data dictionary (`data_dictionary.csv`)  
-   - Summary tables (Title I, grade, race, gender, CS participation)  
-   - Visualizations (histograms, bar charts, participation status plots)  
-
+ 
 > **Note:** Every step is reproducible via `K12_CS_Analysis.Rmd`. This is a full **data engineering → analysis → visualization pipeline**.
 
 ---
@@ -100,39 +87,10 @@ Located in `output/`
 
 ---
 
-### 2. Summary Tables
-Located in `output/`
-
-| File | Description |
-|------|-------------|
-| `titleI_summary.csv` | CS access by Title I status |
-| `grade_level_summary.csv` | CS availability by school level |
-| `gender_summary.csv` | Average gender composition of CS enrollment |
-| `race_summary.csv` | Racial composition of CS enrollment |
-| `cs_status_table.csv` | Schools offering vs. not offering CS |
-| `distribution_summary.csv` | Distribution of CS classes offered |
-
----
-
-### 3. Visualizations
-Located in `figures/`
-
-| File | Description |
-|------|-------------|
-| `fig1_distribution.png` | Distribution of CS classes offered |
-| `fig_cs_status.png` | CS participation status |
-| `gender_share.png` | Gender composition of CS enrollment |
-| `titleI_access.png` | CS access by Title I status |
-| `grade_level_access.png` | CS availability by grade level |
-
----
-
-### 4. Reproducible Report
+### 2. Reproducible Report
 
 - `K12_CS_Analysis.Rmd` — Full R Markdown workflow with code, tables, and figures  
 - `K12_CS_Analysis.html` — Rendered HTML report for a formatted view  
-
-All figures and tables are automatically generated when you knit the `.Rmd` file.
 
 ---
 
@@ -172,7 +130,6 @@ This repository demonstrates:
 
 - Large-scale administrative data integration  
 - End-to-end reproducible data engineering workflows  
-- Equity-focused education policy analysis  
 - Structured validation and transformation pipelines  
 
 ---
