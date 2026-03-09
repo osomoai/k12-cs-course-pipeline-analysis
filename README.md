@@ -89,8 +89,7 @@ Located in `output/`
 
 ### 2. Reproducible Report
 
-- `K12_CS_Analysis.Rmd` — Full R Markdown workflow with code, tables, and figures  
-- `K12_CS_Analysis.html` — Rendered HTML report for a formatted view  
+- `K12_CS_Analysis.Rmd` — Full R Markdown workflow with code and tables
 
 ---
 
