@@ -108,7 +108,7 @@ Key variables in the final dataset:
 | `Prop_White_CS`, `Prop_Black_CS`, etc. | Proportion of students in CS by race |
 | `TITLEI_STATUS_TEXT` | Title I status of the school |
 | `Elementary`, `Middle`, `High` | School grade-level indicators |
-| Additional columns | Derived enrollment totals, proportional measures, and validation flags |
+| Additional columns | Derived enrollment totals, and proportional measures |
 
 ---
 
