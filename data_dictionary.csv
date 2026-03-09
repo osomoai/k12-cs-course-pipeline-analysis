@@ -1,0 +1,61 @@
+"Variable","Type","Levels"
+"State_Code","character","Many levels"
+"State_Name","character","Many levels"
+"District_ID","character","Many levels"
+"District_Name","character","Many levels"
+"School_ID","integer",NA
+"School_Name","character","Many levels"
+"Combined_Key","character","Many levels"
+"Juvenile_Justice_School","character","No, Yes"
+"CS_Classes_Offered","integer",NA
+"Hispanic_Male","integer",NA
+"Hispanic_Female","integer",NA
+"AmericanIndian_Male","integer",NA
+"AmericanIndian_Female","integer",NA
+"Asian_Male","integer",NA
+"Asian_Female","integer",NA
+"PacificIslander_Male","integer",NA
+"PacificIslander_Female","integer",NA
+"Black_Male","integer",NA
+"Black_Female","integer",NA
+"White_Male","integer",NA
+"White_Female","integer",NA
+"TwoOrMore_Male","integer",NA
+"TwoOrMore_Female","integer",NA
+"Total_Male","integer",NA
+"Total_Female","integer",NA
+"EnglishLearner_Male","integer",NA
+"EnglishLearner_Female","integer",NA
+"Disability_Male","integer",NA
+"Disability_Female","integer",NA
+"SCHOOL_YEAR","character","2020-2021, 2021-2022"
+"TITLEI_STATUS_TEXT","character","Missing, Not a Title I school, Not reported, Title I schoolwide eligible-Title I targeted assistance program, Title I schoolwide eligible school-No program, Title I schoolwide school, Title I targeted assistance eligible school-No program, Title I targeted assistance school"
+"VIRTUAL_TEXT","character","Exclusively virtual, Missing, No virtual instruction, Not reported, Primarily virtual, Supplemental Virtual"
+"title1_group","character","Not Title I, Title I - Schoolwide, Title I - Targeted Assistance"
+"TitleI_Schoolwide","integer",NA
+"TitleI_Targeted","integer",NA
+"Not_TitleI","integer",NA
+"GRADE","character","Many levels"
+"STUDENT_COUNT","integer",NA
+"grade_group","character","Elementary, High, Middle"
+"school_enrollment","integer",NA
+"Elementary","integer",NA
+"Middle","integer",NA
+"High","integer",NA
+"Total_CS_Enrolment","numeric",NA
+"White_CS","numeric",NA
+"Black_CS","numeric",NA
+"Hispanic_CS","numeric",NA
+"Asian_CS","numeric",NA
+"AmericanIndian_CS","numeric",NA
+"Multiracial_CS","numeric",NA
+"Prop_Male_CS","numeric",NA
+"Prop_Female_CS","numeric",NA
+"Race_Total_CS","numeric",NA
+"Race_Exceeds_Total","logical",NA
+"Total_Race_CS","numeric",NA
+"Prop_White_CS","numeric",NA
+"Prop_Hispanic_CS","numeric",NA
+"Prop_Asian_CS","numeric",NA
+"Prop_AmericanIndian_CS","numeric",NA
+"Prop_Multiracial_CS","numeric",NA
