@@ -129,7 +129,8 @@ This repository demonstrates:
 
 - Large-scale administrative data integration  
 - End-to-end reproducible data engineering workflows  
-- Structured validation and transformation pipelines  
+- Structured validation and transformation pipelines
+- Comprehensive datasets for educational policy research
 
 ---
 
