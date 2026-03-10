@@ -82,7 +82,7 @@ This is not just analysis — it is a **reproducible, multi-step data engineerin
 ### 1. Cleaned Analytical Dataset
 Located in `output/`
 
-- `combined_data_clean_sample.csv` — Sample of final harmonized dataset  
+- `combined_data_sample_150.csv` — Sample of final harmonized dataset  
 - `data_dictionary.csv` — Variable definitions, types, and descriptions  
 
 ---
