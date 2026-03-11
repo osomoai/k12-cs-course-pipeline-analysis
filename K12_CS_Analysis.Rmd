@@ -187,33 +187,13 @@ data_ccd_2021 %>%
 
 #Title I grouping
 data_ccd_2021 <- data_ccd_2021 %>%
-  mutate(
- title1_group = case_when(
-      TITLEI_STATUS_TEXT %in% c(
-        "Title I schoolwide school",
-        "Title I schoolwide eligible school-No program"
-      ) ~ "Title I - Schoolwide",
-
-      TITLEI_STATUS_TEXT %in% c(
-        "Title I targeted assistance school",
-        "Title I targeted assistance eligible school-No program",
-        "Title I schoolwide eligible-Title I targeted assistance program"
-      ) ~ "Title I - Targeted Assistance",
-
-      TITLEI_STATUS_TEXT == "Not a Title I school" ~ "Not Title I",
-
-      TITLEI_STATUS_TEXT %in% c("Not reported", "Missing") ~ NA_character_,
-
-      TRUE ~ NA_character_
-    )
-  )
-
-
-data_ccd_2021 <- data_ccd_2021 %>%
   group_by(NCESSCH) %>%
-  mutate(
-    has_title1_info = any(!is.na(TITLEI_STATUS_TEXT)),
-    
+  summarise(
+    SCHOOL_YEAR = first(SCHOOL_YEAR),
+    VIRTUAL_TEXT = first(VIRTUAL_TEXT),
+    has_title1_info = any(!is.na(TITLEI_STATUS_TEXT) &
+                          !TITLEI_STATUS_TEXT %in% c("Not reported","Missing")),
+
     TitleI_Schoolwide = if_else(
       has_title1_info,
       as.integer(any(TITLEI_STATUS_TEXT %in% c(
@@ -222,7 +202,7 @@ data_ccd_2021 <- data_ccd_2021 %>%
       ))),
       NA_integer_
     ),
-    
+
     TitleI_Targeted = if_else(
       has_title1_info,
       as.integer(any(TITLEI_STATUS_TEXT %in% c(
@@ -232,16 +212,17 @@ data_ccd_2021 <- data_ccd_2021 %>%
       ))),
       NA_integer_
     ),
-    
+
     Not_TitleI = if_else(
       has_title1_info,
       as.integer(any(TITLEI_STATUS_TEXT == "Not a Title I school")),
       NA_integer_
-    )
+    ),
+
+    .groups = "drop"
   ) %>%
-  ungroup() %>%
   select(-has_title1_info)
-    
+
 ##Because the CCD membership data has multiple rows per school, then we need to first sort the variables before ensuring uniqueness
 #Listed all grade values exactly as they appear in the data for decision how to group them 
 
@@ -253,55 +234,20 @@ data_ccd_membership_2021 %>%
 data_ccd_membership_2021 <- data_ccd_membership_2021 %>%
   mutate(
     grade_group = case_when(
-      GRADE %in% c(
-        "Pre-Kindergarten", "Kindergarten",
-        "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5"
-      ) ~ "Elementary",
-
-      GRADE %in% c(
-        "Grade 6", "Grade 7", "Grade 8"
-      ) ~ "Middle",
-
-      GRADE %in% c(
-        "Grade 9", "Grade 10", "Grade 11", "Grade 12"
-      ) ~ "High",
-
-      GRADE %in% c(
-        "Not Specified", "No Category Codes", "Ungraded", "Adult Education"
-      ) ~ NA_character_,
-
+      GRADE %in% c("Pre-Kindergarten","Kindergarten","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5") ~ "Elementary",
+      GRADE %in% c("Grade 6","Grade 7","Grade 8") ~ "Middle",
+      GRADE %in% c("Grade 9","Grade 10","Grade 11","Grade 12") ~ "High",
       TRUE ~ NA_character_
     )
-  )
-
-#Now collapsed to one row per school, by summarizing the student counts as school enrollment, and producing three columns (Elementary, Middle, High) with 0 / 1 / NA.
-data_ccd_membership_2021 <- data_ccd_membership_2021 %>%
-  group_by(NCESSCH) %>%
-  mutate(
-    school_enrollment = sum(STUDENT_COUNT, na.rm = TRUE),
-    
-    has_any_grade_info = any(!is.na(grade_group)),
-
-    Elementary = if_else(
-      has_any_grade_info,
-      as.integer(any(grade_group == "Elementary")),
-      NA_integer_
-    ),
-
-    Middle = if_else(
-      has_any_grade_info,
-      as.integer(any(grade_group == "Middle")),
-      NA_integer_
-    ),
-
-    High = if_else(
-      has_any_grade_info,
-      as.integer(any(grade_group == "High")),
-      NA_integer_
-    )
   ) %>%
-  ungroup() %>%
-  select(-has_any_grade_info)
+  group_by(NCESSCH) %>%
+  summarise(
+    school_enrollment = sum(STUDENT_COUNT, na.rm = TRUE),
+    Elementary = as.integer(any(grade_group == "Elementary")),
+    Middle = as.integer(any(grade_group == "Middle")),
+    High = as.integer(any(grade_group == "High")),
+    .groups = "drop"
+  )
 
 #Ensure the uniqueness of NCESSCH as well for the CCD membership file
 data_ccd_membership_2021 %>%
@@ -325,32 +271,13 @@ data_ccd_2020 %>%
 
 #Title I grouping
 data_ccd_2020 <- data_ccd_2020 %>%
-  mutate(
- title1_group = case_when(
-      TITLEI_STATUS_TEXT %in% c(
-        "Title I schoolwide school",
-        "Title I schoolwide eligible school-No program"
-      ) ~ "Title I - Schoolwide",
-
-      TITLEI_STATUS_TEXT %in% c(
-        "Title I targeted assistance school",
-        "Title I targeted assistance eligible school-No program",
-        "Title I schoolwide eligible-Title I targeted assistance program"
-      ) ~ "Title I - Targeted Assistance",
-
-      TITLEI_STATUS_TEXT == "Not a Title I school" ~ "Not Title I",
-
-      TITLEI_STATUS_TEXT %in% c("Not reported", "Missing") ~ NA_character_,
-
-      TRUE ~ NA_character_
-    )
-  )
-
-data_ccd_2020 <- data_ccd_2020 %>%
   group_by(NCESSCH) %>%
-  mutate(
-    has_title1_info = any(!is.na(TITLEI_STATUS_TEXT)),
-    
+  summarise(
+    SCHOOL_YEAR = first(SCHOOL_YEAR),
+    VIRTUAL_TEXT = first(VIRTUAL_TEXT),
+    has_title1_info = any(!is.na(TITLEI_STATUS_TEXT) &
+                          !TITLEI_STATUS_TEXT %in% c("Not reported","Missing")),
+
     TitleI_Schoolwide = if_else(
       has_title1_info,
       as.integer(any(TITLEI_STATUS_TEXT %in% c(
@@ -359,7 +286,7 @@ data_ccd_2020 <- data_ccd_2020 %>%
       ))),
       NA_integer_
     ),
-    
+
     TitleI_Targeted = if_else(
       has_title1_info,
       as.integer(any(TITLEI_STATUS_TEXT %in% c(
@@ -369,18 +296,20 @@ data_ccd_2020 <- data_ccd_2020 %>%
       ))),
       NA_integer_
     ),
-    
+
     Not_TitleI = if_else(
       has_title1_info,
       as.integer(any(TITLEI_STATUS_TEXT == "Not a Title I school")),
       NA_integer_
-    )
+    ),
+
+    .groups = "drop"
   ) %>%
-  ungroup() %>%
-  select(-has_title1_info)    
+  select(-has_title1_info)
 
 ##Because the CCD membership data has multiple rows per school, then we need to first sort the variables before ensuring uniqueness
 #Listed all grade values exactly as they appear in the data for decision how to group them 
+
 #Listed all the distinct grades
 data_ccd_membership_2020 %>%
   distinct(GRADE)
@@ -389,55 +318,20 @@ data_ccd_membership_2020 %>%
 data_ccd_membership_2020 <- data_ccd_membership_2020 %>%
   mutate(
     grade_group = case_when(
-      GRADE %in% c(
-        "Pre-Kindergarten", "Kindergarten",
-        "Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5"
-      ) ~ "Elementary",
-
-      GRADE %in% c(
-        "Grade 6", "Grade 7", "Grade 8"
-      ) ~ "Middle",
-
-      GRADE %in% c(
-        "Grade 9", "Grade 10", "Grade 11", "Grade 12"
-      ) ~ "High",
-
-      GRADE %in% c(
-        "Not Specified", "No Category Codes", "Ungraded", "Adult Education"
-      ) ~ NA_character_,
-
+      GRADE %in% c("Pre-Kindergarten","Kindergarten","Grade 1","Grade 2","Grade 3","Grade 4","Grade 5") ~ "Elementary",
+      GRADE %in% c("Grade 6","Grade 7","Grade 8") ~ "Middle",
+      GRADE %in% c("Grade 9","Grade 10","Grade 11","Grade 12") ~ "High",
       TRUE ~ NA_character_
     )
-  )
-
-#Now collapsed to one row per school, by summarizing the student counts as school enrollment, and producing three columns (Elementary, Middle, High) with 0 / 1 / NA.
-data_ccd_membership_2020 <- data_ccd_membership_2020 %>%
-  group_by(NCESSCH) %>%
-  mutate(
-    school_enrollment = sum(STUDENT_COUNT, na.rm = TRUE),
-    
-    has_any_grade_info = any(!is.na(grade_group)),
-
-    Elementary = if_else(
-      has_any_grade_info,
-      as.integer(any(grade_group == "Elementary")),
-      NA_integer_
-    ),
-
-    Middle = if_else(
-      has_any_grade_info,
-      as.integer(any(grade_group == "Middle")),
-      NA_integer_
-    ),
-
-    High = if_else(
-      has_any_grade_info,
-      as.integer(any(grade_group == "High")),
-      NA_integer_
-    )
   ) %>%
-  ungroup() %>%
-  select(-has_any_grade_info)
+  group_by(NCESSCH) %>%
+  summarise(
+    school_enrollment = sum(STUDENT_COUNT, na.rm = TRUE),
+    Elementary = as.integer(any(grade_group == "Elementary")),
+    Middle = as.integer(any(grade_group == "Middle")),
+    High = as.integer(any(grade_group == "High")),
+    .groups = "drop"
+  )
 
 #Ensure the uniqueness of NCESSCH
 data_ccd_membership_2020 %>%
@@ -556,7 +450,8 @@ combined_data_clean1 <- combined_data_clean1 %>%
   
   Total_Race_CS = ifelse(Total_Race_CS == 0, NA, Total_Race_CS),
    
-   Prop_White_CS = White_CS / Total_Race_CS,
+   Prop_Black_CS = Black_CS / Total_Race_CS,
+  Prop_White_CS = White_CS / Total_Race_CS,
    Prop_Hispanic_CS = Hispanic_CS / Total_Race_CS,
    Prop_Asian_CS = Asian_CS / Total_Race_CS,
    Prop_AmericanIndian_CS = AmericanIndian_CS / Total_Race_CS,
