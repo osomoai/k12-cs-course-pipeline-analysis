@@ -29,15 +29,10 @@
 "Disability_Male","integer",NA
 "Disability_Female","integer",NA
 "SCHOOL_YEAR","character","2020-2021, 2021-2022"
-"TITLEI_STATUS_TEXT","character","Missing, Not a Title I school, Not reported, Title I schoolwide eligible-Title I targeted assistance program, Title I schoolwide eligible school-No program, Title I schoolwide school, Title I targeted assistance eligible school-No program, Title I targeted assistance school"
 "VIRTUAL_TEXT","character","Exclusively virtual, Missing, No virtual instruction, Not reported, Primarily virtual, Supplemental Virtual"
-"title1_group","character","Not Title I, Title I - Schoolwide, Title I - Targeted Assistance"
 "TitleI_Schoolwide","integer",NA
 "TitleI_Targeted","integer",NA
 "Not_TitleI","integer",NA
-"GRADE","character","Many levels"
-"STUDENT_COUNT","integer",NA
-"grade_group","character","Elementary, High, Middle"
 "school_enrollment","integer",NA
 "Elementary","integer",NA
 "Middle","integer",NA
