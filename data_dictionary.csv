@@ -49,6 +49,7 @@
 "Race_Total_CS","numeric",NA
 "Race_Exceeds_Total","logical",NA
 "Total_Race_CS","numeric",NA
+"Prop_Black_CS","numeric",NA
 "Prop_White_CS","numeric",NA
 "Prop_Hispanic_CS","numeric",NA
 "Prop_Asian_CS","numeric",NA
