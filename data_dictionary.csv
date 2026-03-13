@@ -55,3 +55,4 @@
 "Prop_Asian_CS","numeric",NA
 "Prop_AmericanIndian_CS","numeric",NA
 "Prop_Multiracial_CS","numeric",NA
+"has_CCD_info","logical",NA
