@@ -62,10 +62,10 @@ data_ccd_membership_2020<-read.csv("data/ccd_SCH_052_2021_l_1a_080621.csv")
 ```{r, echo = FALSE}
 #Select from each of the sub-dataset only the relevant variables
 data_ccd_2020 <- data_ccd_2020 %>%
-  select(SCHOOL_YEAR, NCESSCH, TITLEI_STATUS_TEXT, VIRTUAL_TEXT)
+  select(NCESSCH, TITLEI_STATUS_TEXT, VIRTUAL_TEXT)
 
 data_ccd_2021 <- data_ccd_2021 %>%
-  select(SCHOOL_YEAR, NCESSCH, TITLEI_STATUS_TEXT, VIRTUAL_TEXT)
+  select(NCESSCH, TITLEI_STATUS_TEXT, VIRTUAL_TEXT)
 
 data_ccd_membership_2020 <- data_ccd_membership_2020 %>%
   select(NCESSCH, GRADE, STUDENT_COUNT)
@@ -137,6 +137,9 @@ str(data_crdc_2020_renamed)
 data_crdc_2021_renamed <- data_crdc_2021_renamed %>%
   mutate(Combined_Key = str_pad(Combined_Key, 12, pad = "0"))
  
+data_crdc_2021_renamed <- data_crdc_2021_renamed %>%
+  mutate(SCHOOL_YEAR = "2021-2022") #Add school year 
+
 data_ccd_2021 <- data_ccd_2021 %>%
   mutate(NCESSCH = str_pad(NCESSCH, 12, pad = "0"))
 
@@ -149,6 +152,9 @@ data_ccd_membership_2021 <- data_ccd_membership_2021 %>%
 # First, ensure the key or identifier or merge variables look alike
 data_crdc_2020_renamed <- data_crdc_2020_renamed %>%
   mutate(Combined_Key = str_pad(Combined_Key, 12, pad = "0"))
+
+data_crdc_2020_renamed <- data_crdc_2020_renamed %>%
+  mutate(SCHOOL_YEAR = "2020-2021") #Add school year
 
 #NCESSCH in 2020 CCD data is numeric (double) while Combined_Key is a character. But left_join() requires both columns to be the same type
 data_ccd_2020 <- data_ccd_2020 %>%
@@ -189,7 +195,6 @@ data_ccd_2021 %>%
 data_ccd_2021 <- data_ccd_2021 %>%
   group_by(NCESSCH) %>%
   summarise(
-    SCHOOL_YEAR = first(SCHOOL_YEAR),
     VIRTUAL_TEXT = first(VIRTUAL_TEXT),
     has_title1_info = any(!is.na(TITLEI_STATUS_TEXT) &
                           !TITLEI_STATUS_TEXT %in% c("Not reported","Missing")),
@@ -273,7 +278,6 @@ data_ccd_2020 %>%
 data_ccd_2020 <- data_ccd_2020 %>%
   group_by(NCESSCH) %>%
   summarise(
-    SCHOOL_YEAR = first(SCHOOL_YEAR),
     VIRTUAL_TEXT = first(VIRTUAL_TEXT),
     has_title1_info = any(!is.na(TITLEI_STATUS_TEXT) &
                           !TITLEI_STATUS_TEXT %in% c("Not reported","Missing")),
@@ -482,39 +486,71 @@ combined_data_clean_Courses_Checked <- combined_data_clean1 %>%
 # Report counts. There were no cases of such
 table(combined_data_clean_Courses_Checked$Enrollment_Without_CS_Courses, useNA = "ifany")
 
-#Hence, we can export the final clean data
-write.csv(
-  combined_data_clean1,
-  file = "output/combined_data_clean_final.csv",
-  row.names = FALSE
-)
 ```
 
 5. **Exploratory Visualizations**:  
    - Excerpts from the data
    - Data Dictionary  
 ```{r, echo = FALSE}
-##See fragments of the data set and the final dataset structure
-head(combined_data_clean1, 5)
-str(combined_data_clean1)
+#Keep two datasets. One dataset has all CRDC schools (regardless of CCD match), the other dataset has only CRDC schools with a CCD match (i.e., complete enrollment, Title I, grade, and virtual info)
 
-# Export 150-row sample
-sample_data <- combined_data_clean1[sample(nrow(combined_data_clean1), 150), ]
+# Flag which rows have CCD info
+combined_data_clean1 <- combined_data_clean1 %>%
+  mutate(has_CCD_info = !is.na(school_enrollment))
+
+# Dataset with complete CCD info (for analyses requiring enrollment, grades, Title I)
+combined_data_clean1_ccd <- combined_data_clean1 %>%
+  filter(has_CCD_info)
+
+# Dataset with all CRDC schools (including unmatched)
+combined_data_full <- combined_data_clean1
+
+##See fragments of each of the datasets and structure
+#the ccd matched only
+head(combined_data_clean1_ccd, 5)
+str(combined_data_clean1_ccd)
+
+#the full dataset for CDRC, including the unmatched
+head(combined_data_full, 5)
+str(combined_data_full)
 
 
-#Hence, we can export a sample of the first 150 rows of the final clean data
+# Export 150-row sample of each data set
+#Only ccd matched data
+sample_data_ccd<- combined_data_clean1_ccd[sample(nrow(combined_data_clean1_ccd), 150), ]
+
 write.csv(
-  sample_data,
-  file = "output/combined_data_sample_150.csv",
+  sample_data_ccd,
+  file = "output/combined_data_sample_150_ccd.csv",
   row.names = FALSE
 )
 
-##Here is the data dictionary–style table, showing, One row per variable, Column for variable name, Column for type (numeric, character, factor, etc.), Column for levels if the variable has levels (like factors or character variables with few unique values). This will be very useful for checking your dataset and making summary tables.
-# Create a data dictionary table
+#For CRDC data, including the unmatched
+sample_data_full <- combined_data_full[sample(nrow(combined_data_full), 150), ]
+
+write.csv(
+  sample_data_full,
+  file = "output/combined_data_sample_150_full.csv",
+  row.names = FALSE
+)
+
+#Export the final clean data (with complete CCD info for analyses requiring enrollment, grades, Title I))
+write.csv(
+  combined_data_clean1_ccd,
+ file = "output/combined_data_clean_final_ccd.csv", row.names = FALSE
+)
+
+#Export the final clean data (all CRDC schools, including unmatched)
+write.csv(
+  combined_data_full,
+  file = "output/combined_data_clean_final_full.csv", row.names = FALSE
+)
+
+##Here is the data dictionary–style table, showing, One row per variable, Column for variable name, Column for type (numeric, character, factor, etc.)
 data_dict <- tibble(
-  Variable = names(combined_data_clean1),
-  Type = sapply(combined_data_clean1, class),
-  Levels = sapply(combined_data_clean1, function(x) {
+  Variable = names(combined_data_full),
+  Type = sapply(combined_data_full, class),
+  Levels = sapply(combined_data_full, function(x) {
     if (is.factor(x) || is.character(x)) {
       n_levels <- length(unique(na.omit(x)))
       if (n_levels <= 10) {
@@ -530,12 +566,9 @@ data_dict <- tibble(
 
 data_dict
 
-# Export the data dictionary
-write.csv(
-  data_dict,
-  file = "output/data_dictionary.csv",
-  row.names = FALSE
-)
+write.csv(data_dict,
+         file = "output/data_dictionary.csv",
+          row.names = FALSE)
 
 ```
 
