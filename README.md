@@ -70,7 +70,8 @@ This is not just analysis — it is a **reproducible, multi-step data engineerin
    - Derived school-level indicators for Title I and grade levels
 
 7. **Output Generation**
-   - Clean analytical datasets (`combined_data_clean_final.csv`)  
+   - Clean analytical datasets 1 has only CCD matched data (`combined_data_clean_final_ccd.csv`)
+   - Clean analytical datasets 2 has CRDC and CCD unmatched data (`combined_data_clean_final_full.csv`) 
    - Data dictionary (`data_dictionary.csv`)  
  
 > **Note:** Every step is reproducible via `K12_CS_Analysis.Rmd`. This is a full **data engineering → analysis → visualization pipeline**.
@@ -82,7 +83,8 @@ This is not just analysis — it is a **reproducible, multi-step data engineerin
 ### 1. Cleaned Analytical Dataset
 Located in `output/`
 
-- `combined_data_sample_150.csv` — Sample of final harmonized dataset  
+- `combined_data_sample_150_ccd.csv` — Sample of final harmonized dataset (ccd matched)
+- `combined_data_sample_150.csv_full` — Sample of final harmonized dataset (crdc, with ccd unmatched)
 - `data_dictionary.csv` — Variable definitions, types, and descriptions  
 
 ---
