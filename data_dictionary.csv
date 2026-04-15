@@ -1,0 +1,69 @@
+"Variable","Type","Levels"
+"State_Code","character","Many levels"
+"State_Name","character","Many levels"
+"District_ID","character","Many levels"
+"District_Name","character","Many levels"
+"School_ID","integer",NA
+"School_Name","character","Many levels"
+"Combined_Key","character","Many levels"
+"Juvenile_Justice_School","character","No, Yes"
+"CS_Classes_Offered","integer",NA
+"CS_Hispanic_Male","integer",NA
+"CS_Hispanic_Female","integer",NA
+"CS_AmericanIndian_Male","integer",NA
+"CS_AmericanIndian_Female","integer",NA
+"CS_Asian_Male","integer",NA
+"CS_Asian_Female","integer",NA
+"CS_PacificIslander_Male","integer",NA
+"CS_PacificIslander_Female","integer",NA
+"CS_Black_Male","integer",NA
+"CS_Black_Female","integer",NA
+"CS_White_Male","integer",NA
+"CS_White_Female","integer",NA
+"CS_TwoOrMore_Male","integer",NA
+"CS_TwoOrMore_Female","integer",NA
+"CS_Total_Male","integer",NA
+"CS_Total_Female","integer",NA
+"CS_EnglishLearner_Male","integer",NA
+"CS_EnglishLearner_Female","integer",NA
+"CS_Disability_Male","integer",NA
+"CS_Disability_Female","integer",NA
+"SCHOOL_YEAR","character","2020-2021, 2021-2022"
+"VIRTUAL_TEXT","character","Exclusively virtual, Missing, No virtual instruction, Not reported, Primarily virtual, Supplemental Virtual"
+"TitleI_Status","character","Mixed, Not_TitleI, Schoolwide, Targeted"
+"school_enrollment","integer",NA
+"Elementary","integer",NA
+"Middle","integer",NA
+"High","integer",NA
+"sex_female","numeric",NA
+"sex_male","numeric",NA
+"race_american_indian","numeric",NA
+"race_asian","numeric",NA
+"race_black","numeric",NA
+"race_hispanic","numeric",NA
+"race_pacific_islander","numeric",NA
+"race_multiracial","numeric",NA
+"race_white","numeric",NA
+"sex_total","numeric",NA
+"race_total","numeric",NA
+"Total_CS_Enrolment","numeric",NA
+"White_CS","numeric",NA
+"Black_CS","numeric",NA
+"Hispanic_CS","numeric",NA
+"Asian_CS","numeric",NA
+"AmericanIndian_CS","numeric",NA
+"Multiracial_CS","numeric",NA
+"Disability_CS","numeric",NA
+"EnglishLearner_CS","numeric",NA
+"Prop_Male_CS","numeric",NA
+"Prop_Female_CS","numeric",NA
+"Race_Total_CS","numeric",NA
+"Race_Exceeds_Total","logical",NA
+"Total_Race_CS","numeric",NA
+"Prop_Black_CS","numeric",NA
+"Prop_White_CS","numeric",NA
+"Prop_Hispanic_CS","numeric",NA
+"Prop_Asian_CS","numeric",NA
+"Prop_AmericanIndian_CS","numeric",NA
+"Prop_Multiracial_CS","numeric",NA
+"has_CCD_info","logical",NA
