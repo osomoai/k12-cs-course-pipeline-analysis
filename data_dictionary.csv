@@ -48,7 +48,6 @@
 "race_total","numeric",NA
 "sex_female_prop","numeric",NA
 "sex_male_prop","numeric",NA
-"sex_total_prop","numeric",NA
 "race_american_indian_prop","numeric",NA
 "race_asian_prop","numeric",NA
 "race_black_prop","numeric",NA
@@ -56,7 +55,6 @@
 "race_pacific_islander_prop","numeric",NA
 "race_multiracial_prop","numeric",NA
 "race_white_prop","numeric",NA
-"race_total_prop","numeric",NA
 "Total_CS_Enrolment","numeric",NA
 "White_CS","numeric",NA
 "Black_CS","numeric",NA
