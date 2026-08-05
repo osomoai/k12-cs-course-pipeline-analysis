@@ -81,23 +81,19 @@ This is a **reproducible, multi-step data engineering workflow** that transforms
 ## Outputs
 
 ### 1. Cleaned Analytical Dataset
-Located in `output/`
-
-- `combined_data_sample_150_ccd.csv` — Sample of final harmonized dataset (ccd matched)
-- `combined_data_sample_150.csv_full` — Sample of final harmonized dataset (crdc, with ccd unmatched)
-- `data_dictionary.csv` — Variable definitions, types, and descriptions  
+Listed under item #7 of the methods / data engineering pipeline 
 
 ---
 
 ### 2. Reproducible Report
-
-- `K12_CS_Analysis.Rmd` — Full R Markdown workflow with code and tables
+- [`K12_CS_Analysis_Data_Pipeline.Rmd`](K12_CS_Analysis_Data_Pipeline.Rmd) — Complete reproducible R Markdown workflow documenting data preparation, analysis procedures, and output data and tables
 
 ---
 
-## Data Description
+### 3. Data Dictionary (Snopsis)
+Get full access following relevant link under item #7 of the methods / data engineering pipeline 
 
-Key variables in the final dataset:
+Some key variables in the final dataset:
 
 | Variable | Description |
 |----------|-------------|
@@ -117,11 +113,15 @@ Key variables in the final dataset:
 
 To reproduce the analysis:
 
-1. Download CRDC and CCD datasets from the links above.  
-2. Place them in the `data/` folder of this repository.  
-3. Open `K12_CS_Analysis.Rmd` in RStudio and click **Knit**.  
+1. Download the CRDC and CCD datasets from the sources provided above.
+2. Save the datasets on your local machine.
+3. Open [`K12_CS_Analysis_Data_Pipeline.Rmd`](K12_CS_Analysis_Data_Pipeline.Rmd) in RStudio.
+4. Update the file paths in the R Markdown file to match the locations of the datasets on your computer.
+5. Knit the R Markdown file to generate the analysis outputs.
 
-All figures, tables, and the cleaned dataset will be automatically generated.
+**Important note:** The current R Markdown workflow contains absolute file paths from the original development environment. Before running the analysis, users must update these paths to point to the appropriate locations on their own local machine. The repository does not include the full CRDC and CCD datasets due to their large file sizes.
+
+**Alternative execution option:** Because the analysis workflow is extensive, knitting the full R Markdown file may occasionally fail depending on local system resources or RStudio settings. If this occurs, users can copy and paste the R code chunks directly into an R script or R console and run the analysis sequentially.
 
 ---
 
