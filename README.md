@@ -19,7 +19,7 @@ This project analyzes the availability and enrollment patterns of K–12 Compute
 - Derivation of aggregated and proportional variables  
 - Production of analysis-ready datasets 
 
-This is not just analysis — it is a **reproducible, multi-step data engineering workflow** that transforms messy administrative datasets into a clean, integrated resource ready for policy research.
+This is a **reproducible, multi-step data engineering workflow** that transforms messy administrative datasets into a clean, integrated resource ready for policy research.
 ![k12-cs-course-pipeline-analysis](pipeline_diagram.png)
 ---
 
