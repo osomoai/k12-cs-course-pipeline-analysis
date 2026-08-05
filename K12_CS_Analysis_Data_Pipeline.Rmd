@@ -333,36 +333,51 @@ data_ccd_membership_2021_clean_merged <- data_ccd_membership_2021_clean_merged %
 summary(data_ccd_membership_2021_clean_merged$school_enrollment - data_ccd_membership_2021_clean_merged$sex_total)
 summary(data_ccd_membership_2021_clean_merged$school_enrollment - data_ccd_membership_2021_clean_merged$race_total)
 
-#Covert to proportion
-#data_ccd_membership_2021_clean_merged <- data_ccd_membership_2021_clean_merged %>%
- # mutate(
-  #  across(starts_with("sex_"), ~ . / school_enrollment),
-  #  across(starts_with("race_"), ~ . / school_enrollment)
-  #)
-
-data_ccd_membership_2021_clean_merged <- data_ccd_membership_2021_clean_merged %>%
+#Convert to proportion
+data_ccd_membership_2021_clean_merged <-
+  data_ccd_membership_2021_clean_merged %>%
   mutate(
     across(
-      starts_with("sex_"),
-      ~ . / school_enrollment,
+      starts_with("sex_") &
+        !matches("sex_total") &
+        !ends_with("_prop"),
+      ~ if_else(sex_total > 0, . / sex_total, NA_real_),
       .names = "{.col}_prop"
     ),
     across(
-      starts_with("race_"),
-      ~ . / school_enrollment,
+      starts_with("race_") &
+        !matches("race_total") &
+        !ends_with("_prop") &
+        !ends_with("_cs"),
+      ~ if_else(race_total > 0, . / race_total, NA_real_),
       .names = "{.col}_prop"
     )
   )
 
-#check the proportion to ensure things are in order
+# Validate Sex and Race Proportions
+
+## Check that sex proportions sum to 1
 summary(
-  data.frame(
-    Prop_Male = data_ccd_membership_2021_clean_merged$sex_male /
-      data_ccd_membership_2021_clean_merged$school_enrollment,
-    
-    Prop_Female = data_ccd_membership_2021_clean_merged$sex_female /
-      data_ccd_membership_2021_clean_merged$school_enrollment
-  )
+  data_ccd_membership_2021_clean_merged %>%
+    transmute(
+      sex_prop_sum = rowSums(
+        across(starts_with("sex_") & ends_with("_prop")),
+        na.rm = TRUE
+      )
+    ) %>%
+    pull(sex_prop_sum)
+)
+
+## Check that race proportions sum to 1
+summary(
+  data_ccd_membership_2021_clean_merged %>%
+    transmute(
+      race_prop_sum = rowSums(
+        across(starts_with("race_") & ends_with("_prop")),
+        na.rm = TRUE
+      )
+    ) %>%
+    pull(race_prop_sum)
 )
 
 #Ensure the uniqueness of NCESSCH as well for the CCD membership file
@@ -523,44 +538,54 @@ data_ccd_membership_2020_clean_merged <- data_ccd_membership_2020_clean_merged %
 summary(data_ccd_membership_2020_clean_merged$school_enrollment - data_ccd_membership_2020_clean_merged$sex_total)
 summary(data_ccd_membership_2020_clean_merged$school_enrollment - data_ccd_membership_2020_clean_merged$race_total)
 
-#Covert to proportion
-#data_ccd_membership_2020_clean_merged <- data_ccd_membership_2020_clean_merged %>%
-#  mutate(
-#    across(starts_with("sex_"), ~ . / school_enrollment),
- #   across(starts_with("race_"), ~ . / school_enrollment)
- # )
 
-data_ccd_membership_2020_clean_merged <- 
+#Convert to proportion
+data_ccd_membership_2020_clean_merged <-
   data_ccd_membership_2020_clean_merged %>%
   mutate(
     across(
-      c(sex_male, sex_female),
-      ~ . / sex_total,
+      starts_with("sex_") &
+        !matches("sex_total") &
+        !ends_with("_prop"),
+      ~ if_else(sex_total > 0, . / sex_total, NA_real_),
       .names = "{.col}_prop"
     ),
     across(
-      starts_with("race_") & !all_of("race_total"),
-      ~ . / race_total,
+      starts_with("race_") &
+        !matches("race_total") &
+        !ends_with("_prop") &
+        !ends_with("_cs"),
+      ~ if_else(race_total > 0, . / race_total, NA_real_),
       .names = "{.col}_prop"
     )
   )
 
-# check sex proportions to ensure things are in order
-summary(
-  data.frame(
-    Prop_Male = data_ccd_membership_2020_clean_merged$sex_male /
-      data_ccd_membership_2020_clean_merged$sex_total,
+# Validate Sex and Race Proportions
 
-    Prop_Female = data_ccd_membership_2020_clean_merged$sex_female /
-      data_ccd_membership_2020_clean_merged$sex_total
-  )
+## Check that sex proportions sum to 1
+summary(
+  data_ccd_membership_2020_clean_merged %>%
+    transmute(
+      sex_prop_sum = rowSums(
+        across(starts_with("sex_") & ends_with("_prop")),
+        na.rm = TRUE
+      )
+    ) %>%
+    pull(sex_prop_sum)
 )
 
-#check sex proportion to ensure things are in order (alternative approach)
+## Check that race proportions sum to 1
 summary(
-  data_ccd_membership_2020_clean_merged$sex_male_prop +
-  data_ccd_membership_2020_clean_merged$sex_female_prop
+  data_ccd_membership_2020_clean_merged %>%
+    transmute(
+      race_prop_sum = rowSums(
+        across(starts_with("race_") & ends_with("_prop")),
+        na.rm = TRUE
+      )
+    ) %>%
+    pull(race_prop_sum)
 )
+
 
 #Ensure the uniqueness of NCESSCH as well for the CCD membership file
 data_ccd_membership_2020_clean_merged %>%
