@@ -73,6 +73,9 @@ This is a **reproducible, multi-step data engineering workflow** that transforms
    - Clean analytical dataset 1 has only CCD-matched data ([`combined_data_clean_final_ccd.csv`](combined_data_clean_final_ccd.csv))
    - Clean analytical dataset 2 has CRDC and CCD unmatched data ([`combined_data_clean_final_full.csv`](combined_data_clean_final_full.csv))
    - Data dictionary ([`data_dictionary.csv`](data_dictionary.csv))
+   - Sample of the final CCD-matched dataset ([`combined_data_sample_150_ccd.csv`](data/combined_data_sample_150_ccd.csv))
+   - Sample of the final full dataset ([`combined_data_sample_150_full.csv`](data/combined_data_sample_150_full.csv))
+   - Basic data dictionary ([`data_dictionary.csv`](data/data_dictionary.csv))
  
 > **Note:** Every step is reproducible via `K12_CS_Analysis.Rmd`. This is a full **data engineering → analysis → visualization pipeline**.
 
