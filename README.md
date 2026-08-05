@@ -70,9 +70,9 @@ This is a **reproducible, multi-step data engineering workflow** that transforms
    - Derived school-level indicators for Title I and grade levels
 
 7. **Output Generation**
-   - Clean analytical datasets 1 has only CCD matched data (`combined_data_clean_final_ccd.csv`)
-   - Clean analytical datasets 2 has CRDC and CCD unmatched data (`combined_data_clean_final_full.csv`) 
-   - Data dictionary (`data_dictionary.csv`)  
+   - Clean analytical dataset 1 has only CCD-matched data ([`combined_data_clean_final_ccd.csv`](combined_data_clean_final_ccd.csv))
+   - Clean analytical dataset 2 has CRDC and CCD unmatched data ([`combined_data_clean_final_full.csv`](combined_data_clean_final_full.csv))
+   - Data dictionary ([`data_dictionary.csv`](data_dictionary.csv))
  
 > **Note:** Every step is reproducible via `K12_CS_Analysis.Rmd`. This is a full **data engineering → analysis → visualization pipeline**.
 
